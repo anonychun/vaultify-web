@@ -28,7 +28,7 @@ RUN apt-get install --no-install-recommends -y build-essential git pkg-config
 
 # Install application gems
 COPY .ruby-version Gemfile Gemfile.lock ./
-RUN bundle install && \
+RUN bundle install --retry 3 && \
 	rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
 	bundle exec bootsnap precompile --gemfile
 
